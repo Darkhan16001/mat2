@@ -1,0 +1,3623 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§2 Призмалар | MATH LAB PRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#071525;
+ --side:#102c48;
+ --panel:#173a57;
+ --line:#527b9d;
+ --blue:#85d9ff;
+ --gold:#ffe18c;
+ --green:#87efbb;
+ --red:#ff9aaf;
+ --white:#f7fbff;
+}
+
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+
+body{
+ background:var(--bg);
+ color:var(--white);
+ font-family:Manrope,Arial,sans-serif;
+}
+
+button,input{font:inherit}
+button{cursor:pointer}
+
+button:focus-visible,
+input:focus-visible{
+ outline:3px solid var(--gold);
+ outline-offset:2px;
+}
+
+/* НЕГІЗГІ ҚҰРЫЛЫМ */
+#app{
+ display:grid;
+ grid-template-columns:265px minmax(0,1fr);
+ grid-template-rows:76px minmax(0,1fr);
+ height:100dvh;
+}
+
+header{
+ grid-column:1/-1;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:9px 20px;
+ background:#102d49;
+ border-bottom:1px solid var(--line);
+}
+
+.logo{
+ font-size:29px;
+ font-weight:800;
+ line-height:1.15;
+}
+
+.logo span{color:var(--blue)}
+
+.subtitle{
+ margin-top:4px;
+ color:#c6ddec;
+ font-size:13px;
+}
+
+.headerRight{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.pill{
+ padding:7px 12px;
+ border:1px solid #618dab;
+ border-radius:24px;
+ background:#1d4c6e;
+ font-size:14px;
+ font-weight:800;
+}
+
+.headBtn{
+ padding:9px 13px;
+ color:white;
+ background:#2875a4;
+ border:1px solid #74afd3;
+ border-radius:10px;
+ font-size:17px;
+ font-weight:800;
+}
+
+/* СОЛ ЖАҚ ПАНЕЛЬ */
+aside{
+ grid-column:1;
+ grid-row:2;
+ display:flex;
+ flex-direction:column;
+ min-height:0;
+ overflow-y:auto;
+ padding:12px;
+ background:var(--side);
+ border-right:2px solid var(--line);
+}
+
+.sideTitle{
+ margin:13px 6px 8px;
+ color:var(--blue);
+ font-size:13px;
+ font-weight:800;
+ letter-spacing:1px;
+}
+
+.sideBtn{
+ display:block;
+ width:100%;
+ margin:4px 0;
+ padding:12px 11px;
+ text-align:left;
+ color:#e7f4ff;
+ background:transparent;
+ border:1px solid transparent;
+ border-radius:11px;
+ font-size:15px;
+ font-weight:800;
+}
+
+.sideBtn:hover{background:#215575}
+
+.sideBtn.active{
+ background:#276d9b;
+ border-color:#78bae7;
+ box-shadow:inset 5px 0 #a5eeff;
+}
+
+.sideBottom{margin-top:auto}
+
+.sideTool{
+ width:100%;
+ display:block;
+ margin:6px 0;
+ padding:12px;
+ color:white;
+ background:#215477;
+ border:1px solid #608bac;
+ border-radius:10px;
+ font-size:13px;
+ font-weight:800;
+ text-align:left;
+}
+
+.timeBox{
+ margin-top:10px;
+ padding:11px;
+ background:#173c59;
+ border:1px solid #5b86a5;
+ border-radius:12px;
+}
+
+.timeRow{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:6px;
+ margin:8px 0;
+ font-size:12px;
+}
+
+.timeRow b{
+ color:var(--gold);
+ font-size:15px;
+}
+
+.timeBtns{display:flex;gap:5px}
+
+.timeBtns button{
+ flex:1;
+ padding:8px;
+ background:#2d79a6;
+ border:0;
+ border-radius:7px;
+ color:white;
+ font-size:14px;
+ font-weight:800;
+}
+
+/* САБАҚ БЕТІ */
+main{
+ grid-column:2;
+ grid-row:2;
+ display:flex;
+ flex-direction:column;
+ min-width:0;
+ min-height:0;
+ background:radial-gradient(
+  ellipse at 80% 0%,
+  #19476c,
+  #071525 74%
+ );
+}
+
+#slideView{
+ flex:1;
+ min-height:0;
+ overflow-x:hidden;
+ overflow-y:auto;
+ padding:42px clamp(18px,4vw,64px) 35px;
+ overscroll-behavior:contain;
+}
+
+.slide{
+ max-width:1240px;
+ width:100%;
+ min-width:0;
+ margin:0 auto;
+}
+
+.eyebrow{
+ color:var(--blue);
+ font-size:17px;
+ font-weight:800;
+ letter-spacing:1px;
+ margin-bottom:13px;
+}
+
+h1{
+ margin:0 0 24px;
+ font-size:clamp(35px,4vw,56px);
+ line-height:1.35;
+}
+
+.lead{
+ font-size:clamp(24px,2.5vw,32px);
+ line-height:1.8;
+ color:#e8f4ff;
+}
+
+.card{
+ min-width:0;
+ margin:19px 0;
+ padding:27px;
+ background:var(--panel);
+ border:2px solid var(--line);
+ border-radius:20px;
+}
+
+.card h3{
+ margin:0 0 13px;
+ color:var(--blue);
+ font-size:clamp(28px,2.8vw,37px);
+ line-height:1.4;
+}
+
+.card p{
+ margin:12px 0;
+ font-size:clamp(22px,2.2vw,28px);
+ line-height:1.8;
+}
+
+strong{color:var(--gold)}
+
+.formula{
+ margin:19px 0;
+ padding:23px;
+ background:#081d32;
+ border-left:6px solid var(--gold);
+ border-radius:14px;
+ font-size:clamp(29px,3vw,45px);
+ line-height:1.55;
+ font-weight:800;
+ text-align:center;
+ overflow-x:auto;
+}
+
+.frac{
+ display:inline-flex;
+ flex-direction:column;
+ align-items:center;
+ vertical-align:middle;
+ line-height:1.15;
+}
+
+.frac span:first-child{
+ border-bottom:2px solid currentColor;
+ padding:0 8px 4px;
+}
+
+.frac span:last-child{
+ padding:4px 8px 0;
+}
+
+.step{
+ margin:11px 0;
+ padding:16px 21px;
+ background:#205171;
+ border-left:5px solid var(--blue);
+ border-radius:12px;
+ font-size:clamp(20px,2.1vw,27px);
+ line-height:1.75;
+}
+
+.step:last-child{
+ background:#1b5345;
+ border-color:var(--green);
+}
+
+.tag{
+ display:inline-block;
+ padding:7px 13px;
+ background:#286083;
+ color:#cbf2ff;
+ border-radius:8px;
+ font-size:16px;
+ font-weight:800;
+}
+
+.figure{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ min-width:0;
+ width:100%;
+ margin:19px 0;
+ padding:18px;
+ background:linear-gradient(
+  135deg,#10324f,#215779
+ );
+ border:2px solid #6597b8;
+ border-radius:19px;
+}
+
+.figure svg{
+ display:block;
+ width:100%;
+ height:auto;
+ max-width:650px;
+ max-height:350px;
+ margin:auto;
+ overflow:visible;
+}
+
+.figure figcaption{
+ margin-top:10px;
+ font-size:20px;
+ font-weight:800;
+ text-align:center;
+ color:#dfefff;
+}
+
+.grid2{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:16px;
+}
+
+.grid2>*{min-width:0}
+.grid2 .figure{margin:0}
+.grid2 .figure svg{max-height:250px}
+
+details{
+ margin:15px 0;
+ padding:18px;
+ background:#1c4868;
+ border:1px solid #608eac;
+ border-radius:13px;
+}
+
+summary{
+ font-size:24px;
+ color:var(--green);
+ font-weight:800;
+ cursor:pointer;
+}
+
+.action{
+ padding:15px 22px;
+ background:#188bcb;
+ border:0;
+ border-radius:11px;
+ color:white;
+ font-size:20px;
+ font-weight:800;
+}
+
+/* ОЙЫН */
+.scoreGrid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:11px;
+}
+
+.score{
+ padding:16px;
+ background:#225577;
+ border:1px solid #6493b3;
+ border-radius:12px;
+ text-align:center;
+ font-size:21px;
+ font-weight:800;
+}
+
+.score b{
+ display:block;
+ color:var(--gold);
+ font-size:42px;
+}
+
+.choice{
+ width:100%;
+ display:block;
+ margin:11px 0;
+ padding:19px 21px;
+ background:#2b6083;
+ border:2px solid #6996b4;
+ border-radius:12px;
+ text-align:left;
+ color:white;
+ font-size:24px;
+ font-weight:800;
+}
+
+.choice.correct{background:#178363}
+.choice.wrong{background:#aa445a}
+.choice:disabled{cursor:default}
+
+/* АРТҚА / КЕЛЕСІ — ТӨМЕНГІ СОЛ ЖАҚ */
+.slideFooter{
+ flex-shrink:0;
+ display:flex;
+ align-items:center;
+ justify-content:flex-start;
+ gap:24px;
+ padding:11px 20px;
+ background:#0c2943;
+ border-top:1px solid #476e8e;
+}
+
+.footerBtns{
+ display:flex;
+ gap:9px;
+ justify-content:flex-start;
+}
+
+.footerBtns button{
+ min-width:125px;
+ padding:12px 18px;
+ color:white;
+ background:#276d9c;
+ border:1px solid #76aed1;
+ border-radius:9px;
+ font-size:18px;
+ font-weight:800;
+}
+
+.footerBtns button:disabled{opacity:.35}
+
+#counter{
+ color:var(--blue);
+ font-size:20px;
+ font-weight:800;
+}
+
+.credit{
+ margin-left:auto;
+ font-size:14px;
+ font-weight:800;
+}
+
+/* КАЛЬКУЛЯТОР */
+#calculator{
+ display:none;
+ position:fixed;
+ z-index:150;
+ top:88px;
+ left:275px;
+ width:238px;
+ max-height:82dvh;
+ overflow:auto;
+ padding:8px;
+ background:#173957;
+ border:1px solid #82a6c2;
+ border-radius:12px;
+ box-shadow:0 12px 35px #0009;
+}
+
+#calculator.open{display:block}
+
+.calcHead{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:7px;
+ background:#3b6c8e;
+ border-radius:7px;
+ font-size:12px;
+ font-weight:800;
+ cursor:move;
+ touch-action:none;
+}
+
+.calcHead button{
+ padding:4px 8px;
+ background:#bf4058;
+ color:white;
+ border:0;
+ border-radius:5px;
+ font-size:12px;
+}
+
+#calcInput{
+ display:block;
+ width:100%;
+ height:39px;
+ margin:7px 0;
+ padding:6px;
+ color:white;
+ background:#081d31;
+ border:1px solid #7a9ebb;
+ border-radius:6px;
+ text-align:right;
+ font-size:17px;
+}
+
+.calcKeys{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:4px;
+}
+
+.calcKeys button{
+ min-width:0;
+ min-height:33px;
+ padding:4px 0;
+ background:#3f6b8c;
+ border:0;
+ border-radius:5px;
+ color:white;
+ font-size:11px;
+}
+
+/* ИНТЕРАКТИВТІ ТАҚТА */
+#whiteboard{
+ display:none;
+ position:fixed;
+ z-index:300;
+ inset:0;
+ flex-direction:column;
+ background:#fff;
+ color:#27445c;
+}
+
+#whiteboard.open{display:flex}
+
+.boardHeader{
+ display:flex;
+ flex-shrink:0;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ min-height:60px;
+ padding:8px 14px;
+ background:#f5f9fd;
+ border-bottom:1px solid #d0e0eb;
+}
+
+.boardHeader b{font-size:20px}
+
+.boardHeader small{
+ display:block;
+ color:#758da0;
+ font-size:11px;
+}
+
+.boardHeader button{
+ color:white;
+ background:#bd4059;
+ border:0;
+ border-radius:9px;
+ padding:10px 13px;
+ font-size:13px;
+ font-weight:800;
+}
+
+#boardArea{
+ position:relative;
+ flex:1;
+ min-height:0;
+ overflow:hidden;
+ background:white;
+}
+
+#boardCanvas{
+ display:block;
+ width:100%;
+ height:100%;
+ touch-action:none;
+ cursor:crosshair;
+}
+
+#boardArea.eraserMode #boardCanvas{
+ cursor:none;
+}
+
+/* ӨШІРГІШ: ТЕК КӨРСЕТКІШІ 30% */
+#eraserCursor{
+ display:none;
+ position:absolute;
+ z-index:25;
+ left:0;
+ top:0;
+ width:40px;
+ height:40px;
+ transform:translate(-50%,-50%);
+ border-radius:50%;
+ border:2px solid rgba(25,100,185,.30);
+ background:rgba(45,133,220,.30);
+ pointer-events:none;
+}
+
+#boardStatus{
+ position:absolute;
+ bottom:10px;
+ left:11px;
+ background:#fffffff0;
+ color:#416d8a;
+ border:1px solid #d3e0eb;
+ border-radius:20px;
+ padding:5px 10px;
+ pointer-events:none;
+ font-size:11px;
+}
+
+/* ҚҰРАЛДАР ТӨМЕНДЕ */
+.boardToolbar{
+ flex-shrink:0;
+ background:#f2f8fc;
+ border-top:1px solid #d0e0eb;
+ padding:6px;
+}
+
+.toolbarRow{
+ display:flex;
+ align-items:center;
+ gap:5px;
+ overflow-x:auto;
+ scrollbar-width:thin;
+ padding:3px 0;
+}
+
+.toolGroup{
+ flex-shrink:0;
+ display:flex;
+ align-items:center;
+ gap:4px;
+ padding:4px 6px;
+ background:white;
+ border:1px solid #d3e1eb;
+ border-radius:10px;
+}
+
+.toolGroup label{
+ color:#8195a5;
+ font-size:10px;
+ font-weight:800;
+ padding:0 4px;
+}
+
+.tool{
+ min-height:34px;
+ padding:7px 9px;
+ background:#eaf2f9;
+ color:#2c536d;
+ border:0;
+ border-radius:7px;
+ font-size:12px;
+ font-weight:800;
+ white-space:nowrap;
+}
+
+.tool.active{
+ color:white;
+ background:#1789ca;
+}
+
+#boardColor{
+ width:36px;
+ height:34px;
+ border:0;
+}
+
+#boardWidth{width:90px}
+
+#pageCount,#zoomCount{
+ min-width:46px;
+ font-size:12px;
+ font-weight:800;
+ text-align:center;
+}
+
+.boardHelp{
+ color:#6d879b;
+ font-size:10px;
+ text-align:center;
+ line-height:1.5;
+}
+
+#boardFile{display:none}
+
+#pagesPanel{
+ display:none;
+ position:absolute;
+ top:12px;
+ right:12px;
+ z-index:30;
+ width:230px;
+ max-height:70%;
+ overflow:auto;
+ background:#f9fcff;
+ border:1px solid #d1e0e9;
+ border-radius:12px;
+ padding:12px;
+ box-shadow:0 10px 30px #0003;
+}
+
+#pagesPanel.open{display:block}
+
+#pagesPanel button{
+ width:100%;
+ display:block;
+ margin:6px 0;
+ padding:9px;
+ background:white;
+ border:1px solid #d4e1eb;
+ border-radius:8px;
+ text-align:left;
+ color:#2b526d;
+ font-size:12px;
+}
+
+#pagesPanel button.active{background:#daefff}
+
+/* ЖЫЛЖЫМАЛЫ ҚҰРАЛДАР */
+.instrument{
+ display:none;
+ position:absolute;
+ z-index:15;
+ pointer-events:none;
+ touch-action:none;
+ user-select:none;
+ transform:
+  translate(-50%,-50%)
+  rotate(var(--rotation,0deg))
+  scale(var(--size,1));
+ transform-origin:center center;
+ filter:drop-shadow(0 4px 8px #0003);
+}
+
+.instrument.visible{display:block}
+.instrument svg{display:block;pointer-events:none}
+
+.instrumentControls{
+ position:absolute;
+ left:50%;
+ top:-42px;
+ transform:translateX(-50%);
+ display:flex;
+ gap:3px;
+ white-space:nowrap;
+ pointer-events:auto;
+}
+
+.instrumentControls button{
+ color:white;
+ background:#285978;
+ border:0;
+ border-radius:5px;
+ padding:5px 7px;
+ font-size:11px;
+ font-weight:800;
+ pointer-events:auto;
+}
+
+.instrumentControls .handle{
+ background:#1589c9;
+ cursor:grab;
+ touch-action:none;
+}
+
+.instrumentControls .close{background:#c03e57}
+
+@media(max-width:1050px){
+ #app{
+  grid-template-columns:180px minmax(0,1fr);
+ }
+ aside{padding:7px}
+ .sideBtn{font-size:12px;padding:9px 7px}
+ .sideTool{font-size:11px}
+ .pill{display:none}
+ .card{padding:19px}
+ .card p{font-size:22px}
+ .grid2{grid-template-columns:1fr}
+ #calculator{left:185px}
+}
+
+@media(max-width:650px){
+ #app{
+  grid-template-columns:120px minmax(0,1fr);
+  grid-template-rows:65px minmax(0,1fr);
+ }
+ header{padding:6px}
+ .logo{font-size:16px}
+ .subtitle{display:none}
+ .headBtn{padding:7px;font-size:12px}
+ aside{padding:4px}
+ .sideTitle{font-size:10px}
+ .sideBtn,.sideTool{font-size:10px;padding:8px 5px}
+ #slideView{padding:25px 10px 18px}
+ h1{font-size:27px}
+ .lead{font-size:19px}
+ .card{padding:14px}
+ .card h3{font-size:22px}
+ .card p{font-size:18px}
+ .step{font-size:18px}
+ .formula{font-size:25px}
+ .slideFooter{padding:7px;gap:7px}
+ .footerBtns{gap:5px}
+ .footerBtns button{
+  min-width:auto;
+  padding:8px;
+  font-size:11px;
+ }
+ #counter{font-size:12px}
+ .credit{display:none}
+ .scoreGrid{grid-template-columns:1fr}
+ .choice{font-size:19px}
+ #calculator{left:5px}
+ .boardHeader b{font-size:13px}
+ .boardHeader button{font-size:10px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<header>
+ <div>
+  <div class="logo">MATH LAB <span>PRO</span></div>
+  <div class="subtitle">
+   §2. Призмалар · Геометрия · 2-курс
+  </div>
+ </div>
+
+ <div class="headerRight">
+  <span class="pill">80 МИНУТ</span>
+  <span class="pill">⭐ <span id="stars">0</span></span>
+
+  <button class="headBtn" onclick="openBoard()">
+   ✎ Тақта
+  </button>
+
+  <button class="headBtn" onclick="toggleFullscreen()">
+   ⛶
+  </button>
+ </div>
+</header>
+
+<!-- СОЛ ЖАҚ ПАНЕЛЬ -->
+<aside>
+ <div class="sideTitle">САБАҚ БӨЛІМДЕРІ</div>
+ <div id="sectionButtons"></div>
+
+ <div class="sideBottom">
+  <div class="sideTitle">ҚҰРАЛДАР</div>
+
+  <button class="sideTool" onclick="openCalc(false)">
+   🧮 Калькулятор
+  </button>
+
+  <button class="sideTool" onclick="openCalc(true)">
+   ∑ Ғылыми калькулятор
+  </button>
+
+  <button class="sideTool" onclick="openBoard()">
+   ✎ Интерактивті тақта
+  </button>
+
+  <div class="timeBox">
+   <div class="timeRow">
+    <span>Алматы уақыты</span>
+    <b id="clock"></b>
+   </div>
+
+   <div class="timeRow">
+    <span>Қалған уақыт</span>
+    <b id="remaining">80:00</b>
+   </div>
+
+   <div class="timeRow">
+    <span>Өткен уақыт</span>
+    <b id="elapsed">00:00</b>
+   </div>
+
+   <div class="timeBtns">
+    <button onclick="startTimer()">▶</button>
+    <button onclick="pauseTimer()">Ⅱ</button>
+    <button onclick="resetTimer()">↻</button>
+   </div>
+  </div>
+ </div>
+</aside>
+
+<!-- САБАҚ -->
+<main>
+ <div id="slideView">
+  <div class="slide" id="slideContent"></div>
+ </div>
+
+ <div class="slideFooter">
+  <div class="footerBtns">
+   <button id="prevBtn" onclick="previousSlide()">
+    ← Артқа
+   </button>
+
+   <button id="nextBtn" onclick="nextSlide()">
+    Келесі →
+   </button>
+  </div>
+
+  <span id="counter">1 / 37</span>
+  <span class="credit">BY DARKHAN</span>
+ </div>
+</main>
+
+</div>
+
+<!-- КАЛЬКУЛЯТОР -->
+<div id="calculator">
+ <div class="calcHead" id="calcHandle">
+  <span id="calcTitle">Калькулятор</span>
+  <button onclick="closeCalc()">✕</button>
+ </div>
+
+ <input id="calcInput" placeholder="0"
+        aria-label="Есептеу өрнегі">
+
+ <div class="calcKeys" id="calcKeys"></div>
+</div>
+
+<!-- ИНТЕРАКТИВТІ АҚ ТАҚТА -->
+<div id="whiteboard">
+
+ <div class="boardHeader">
+  <div>
+   <b>MATH LAB WHITEBOARD</b>
+   <small>
+    Саусақпен жазу · Толық өшіргіш · Геометриялық құралдар
+   </small>
+  </div>
+
+  <button onclick="closeBoard()">
+   ✕ Сабаққа қайту
+  </button>
+ </div>
+
+ <div id="boardArea">
+  <canvas id="boardCanvas"></canvas>
+
+  <div id="eraserCursor"></div>
+  <div id="boardStatus">Қалам · 100%</div>
+
+  <div id="pagesPanel">
+   <b style="font-size:16px">Тақта беттері</b>
+   <div id="pagesList"></div>
+  </div>
+
+  <!-- СЫЗҒЫШ -->
+  <div class="instrument" id="ruler">
+   <div class="instrumentControls">
+    <button class="handle">⠿ Жылжыту</button>
+    <button onclick="resizeInstrument('ruler',.8)">−</button>
+    <button onclick="resizeInstrument('ruler',1.25)">+</button>
+    <button onclick="rotateInstrument('ruler',-15)">↶</button>
+    <button onclick="rotateInstrument('ruler',15)">↷</button>
+    <button class="close" onclick="hideInstrument('ruler')">✕</button>
+   </div>
+   <svg id="rulerSVG" width="420" height="90"
+        viewBox="0 0 420 90"></svg>
+  </div>
+
+  <!-- ТРАНСПОРТИР -->
+  <div class="instrument" id="protractor">
+   <div class="instrumentControls">
+    <button class="handle">⠿ Жылжыту</button>
+    <button onclick="resizeInstrument('protractor',.8)">−</button>
+    <button onclick="resizeInstrument('protractor',1.25)">+</button>
+    <button onclick="rotateInstrument('protractor',-15)">↶</button>
+    <button onclick="rotateInstrument('protractor',15)">↷</button>
+    <button class="close" onclick="hideInstrument('protractor')">✕</button>
+   </div>
+   <svg id="protractorSVG" width="380" height="210"
+        viewBox="0 0 380 210"></svg>
+  </div>
+
+  <!-- ҮШБҰРЫШ СЫЗҒЫШ -->
+  <div class="instrument" id="square">
+   <div class="instrumentControls">
+    <button class="handle">⠿ Жылжыту</button>
+    <button onclick="resizeInstrument('square',.8)">−</button>
+    <button onclick="resizeInstrument('square',1.25)">+</button>
+    <button onclick="rotateInstrument('square',-15)">↶</button>
+    <button onclick="rotateInstrument('square',15)">↷</button>
+    <button class="close" onclick="hideInstrument('square')">✕</button>
+   </div>
+
+   <svg width="290" height="290" viewBox="0 0 290 290">
+    <path
+     d="M18 18L18 274L274 274Z
+        M76 76L76 225L225 225Z"
+     fill="#8cc9ed"
+     fill-opacity=".45"
+     fill-rule="evenodd"
+     stroke="#287fab"
+     stroke-width="4"/>
+    <text x="29" y="251" fill="#185579"
+          font-size="17">90°</text>
+   </svg>
+  </div>
+ </div>
+
+ <!-- ТАҚТА БАТЫРМАЛАРЫ ТӨМЕНДЕ -->
+ <div class="boardToolbar">
+
+  <div class="toolbarRow">
+   <div class="toolGroup">
+    <label>БЕТТЕР</label>
+    <button class="tool" onclick="prevBoardPage()">◀</button>
+    <span id="pageCount">1 / 1</span>
+    <button class="tool" onclick="nextBoardPage()">▶</button>
+    <button class="tool" onclick="addBoardPage()">+ Бет</button>
+    <button class="tool" onclick="togglePages()">▦ Беттер</button>
+    <button class="tool" onclick="deleteBoardPage()">Өшіру</button>
+   </div>
+
+   <div class="toolGroup">
+    <label>ЖАЗУ</label>
+
+    <button class="tool" data-tool="hand"
+     onclick="selectTool('hand')">✋ Қол</button>
+
+    <button class="tool active" data-tool="pen"
+     onclick="selectTool('pen')">✎ Қалам</button>
+
+    <button class="tool" data-tool="highlighter"
+     onclick="selectTool('highlighter')">🖍 Бояу</button>
+
+    <button class="tool" data-tool="eraser"
+     onclick="selectTool('eraser')">◯ Өшіргіш</button>
+
+    <button class="tool" data-tool="text"
+     onclick="selectTool('text')">T Мәтін</button>
+   </div>
+
+   <div class="toolGroup">
+    <label>ФИГУРАЛАР</label>
+    <button class="tool" data-tool="line"
+     onclick="selectTool('line')">╱ Түзу</button>
+    <button class="tool" data-tool="arrow"
+     onclick="selectTool('arrow')">➜</button>
+    <button class="tool" data-tool="rect"
+     onclick="selectTool('rect')">▭</button>
+    <button class="tool" data-tool="circle"
+     onclick="selectTool('circle')">◯</button>
+    <button class="tool" data-tool="triangle"
+     onclick="selectTool('triangle')">△</button>
+    <button class="tool" data-tool="angle"
+     onclick="selectTool('angle')">∠</button>
+    <button class="tool" data-tool="table"
+     onclick="selectTool('table')">▦</button>
+   </div>
+  </div>
+
+  <div class="toolbarRow">
+   <div class="toolGroup">
+    <label>ГЕОМЕТРИЯ</label>
+    <button class="tool" data-tool="compass"
+     onclick="selectTool('compass')">◉ Циркуль</button>
+    <button class="tool"
+     onclick="toggleInstrument('ruler')">📏 Сызғыш</button>
+    <button class="tool"
+     onclick="toggleInstrument('protractor')">◠ Транспортир</button>
+    <button class="tool"
+     onclick="toggleInstrument('square')">📐 Үшбұрыш</button>
+    <button class="tool" onclick="toggleGrid()">⊞ Тор</button>
+   </div>
+
+   <div class="toolGroup">
+    <label>ТҮС / ӨЛШЕМ</label>
+    <input id="boardColor" type="color" value="#1979cc">
+    <input id="boardWidth" type="range"
+     min="1" max="25" value="5">
+   </div>
+
+   <div class="toolGroup">
+    <label>БАСҚАРУ</label>
+    <button class="tool" onclick="undoBoard()">↶</button>
+    <button class="tool" onclick="redoBoard()">↷</button>
+    <button class="tool" onclick="zoomBoard(.8)">−</button>
+    <span id="zoomCount">100%</span>
+    <button class="tool" onclick="zoomBoard(1.25)">+</button>
+    <button class="tool" onclick="resetBoardView()">⌖</button>
+    <button class="tool" onclick="clearBoard()">Тазалау</button>
+    <button class="tool"
+     onclick="document.getElementById('boardFile').click()">
+     + Сурет
+    </button>
+    <button class="tool" onclick="exportBoard()">↓ PNG</button>
+    <input id="boardFile" type="file" accept="image/*">
+   </div>
+  </div>
+
+  <div class="boardHelp">
+   Саусақпен немесе интерактивті қаламмен жазыңдар.
+   Өшіргіш жазуды 100% өшіреді. Өлшем көрсеткіші
+   30% ғана көрінеді.
+  </div>
+ </div>
+</div>
+
+<script>
+"use strict";
+
+/* ======================================
+   1. ПРИЗМАЛАРДЫҢ SVG СЫЗБАЛАРЫ
+====================================== */
+
+function diagram(type){
+
+ const defs=`
+ <defs>
+  <linearGradient id="face"
+   x1="0" y1="0" x2="1" y2="1">
+   <stop offset="0" stop-color="#67ceff"
+    stop-opacity=".63"/>
+   <stop offset="1" stop-color="#ac94f1"
+    stop-opacity=".40"/>
+  </linearGradient>
+ </defs>`;
+
+ let shape="";
+
+ if(type==="triPrism"){
+  shape=`
+  <polygon points="92,264 282,264 190,92"
+   fill="#69c5f5" fill-opacity=".44"/>
+  <polygon points="147,203 337,203 245,31"
+   fill="#ab99ef" fill-opacity=".46"/>
+
+  <polygon points="92,264 147,203 245,31 190,92"
+   fill="#65bdfa" fill-opacity=".36"/>
+
+  <polygon points="282,264 337,203 245,31 190,92"
+   fill="#a995f1" fill-opacity=".37"/>
+
+  <path d="M92 264L282 264L190 92Z
+           M147 203L337 203L245 31Z
+           M92 264L147 203
+           M282 264L337 203
+           M190 92L245 31"
+   fill="none" stroke="#bcecff" stroke-width="4"/>
+
+  <path d="M147 203L337 203"
+   fill="none" stroke="#bcecff"
+   stroke-width="3" stroke-dasharray="8 7"/>
+
+  <text x="73" y="289" font-size="22"
+   fill="#ffe18c">A</text>
+  <text x="283" y="291" font-size="22"
+   fill="#ffe18c">B</text>`;
+ }
+
+ if(type==="rectPrism"){
+  shape=`
+  <polygon points="87,112 265,112 265,262 87,262"
+   fill="#5fc1f8" fill-opacity=".47"/>
+
+  <polygon points="87,112 156,52 334,52 265,112"
+   fill="#b49cf1" fill-opacity=".50"/>
+
+  <polygon points="265,112 334,52 334,202 265,262"
+   fill="#78c8f7" fill-opacity=".40"/>
+
+  <path d="M87 112L156 52H334L265 112H87V262
+           H265V112M265 262L334 202V52"
+   fill="none" stroke="#bdeaff" stroke-width="4"/>
+
+  <path d="M87 262L156 202H334
+           M156 52V202"
+   fill="none" stroke="#bdeaff"
+   stroke-width="3" stroke-dasharray="8 7"/>
+
+  <text x="169" y="289" fill="#ffe08c" font-size="22">
+   a
+  </text>
+  <text x="306" y="254" fill="#ffe08c" font-size="22">
+   b
+  </text>
+  <text x="275" y="184" fill="#ffe08c" font-size="22">
+   h
+  </text>`;
+ }
+
+ if(type==="hexPrism"){
+  shape=`
+  <polygon
+   points="105,223 162,269 259,269 326,223 259,177 162,177"
+   fill="#6cbef3" fill-opacity=".55"/>
+
+  <polygon
+   points="105,76 162,122 259,122 326,76 259,31 162,31"
+   fill="#aa98ef" fill-opacity=".50"/>
+
+  <path d="M105 76L162 122L259 122L326 76
+           L259 31L162 31Z
+           M105 76V223L162 269H259L326 223V76
+           M162 122V269M259 122V269"
+   fill="none" stroke="#bceaff" stroke-width="4"/>
+
+  <path d="M105 223L162 177L259 177L326 223
+           M162 31V177M259 31V177"
+   fill="none" stroke="#bceaff"
+   stroke-width="3" stroke-dasharray="8 7"/>
+
+  <text x="344" y="169" font-size="23"
+   fill="#ffe18c">h</text>`;
+ }
+
+ if(type==="oblique"){
+  shape=`
+  <polygon points="72,145 261,145 261,277 72,277"
+   fill="#6abff4" fill-opacity=".30"/>
+
+  <polygon points="139,56 328,56 261,145 72,145"
+   fill="#a995ed" fill-opacity=".44"/>
+
+  <polygon points="261,145 328,56 328,188 261,277"
+   fill="#76c9f8" fill-opacity=".43"/>
+
+  <path d="M72 145L139 56H328L261 145H72
+           V277H261V145M261 277L328 188V56"
+   fill="none" stroke="#bceaff" stroke-width="4"/>
+
+  <path d="M72 277L139 188L328 188
+           M139 56V188"
+   fill="none" stroke="#bceaff"
+   stroke-width="3" stroke-dasharray="8 7"/>
+
+  <path d="M139 56V145"
+   fill="none" stroke="#ffe18c"
+   stroke-width="5" stroke-dasharray="7 6"/>
+
+  <text x="152" y="116" fill="#ffe18c"
+   font-size="23">h</text>`;
+ }
+
+ if(type==="base"){
+  shape=`
+  <polygon
+   points="87,125 290,125 350,245 147,245"
+   fill="#ffe08c" fill-opacity=".40"
+   stroke="#bdeaff" stroke-width="4"/>
+
+  <path d="M87 125L147 245"
+   fill="none" stroke="#bdeaff" stroke-width="3"/>
+
+  <path d="M188 125V245"
+   fill="none" stroke="#8aeebc"
+   stroke-width="4" stroke-dasharray="7 6"/>
+
+  <text x="222" y="199" font-size="32"
+   fill="#ffe18c">S</text>`;
+ }
+
+ if(type==="lateral"){
+  shape=`
+  <polygon points="87,112 265,112 265,262 87,262"
+   fill="#ffe08c" fill-opacity=".50"/>
+
+  <polygon points="87,112 156,52 334,52 265,112"
+   fill="#5bc3f5" fill-opacity=".36"/>
+
+  <polygon points="265,112 334,52 334,202 265,262"
+   fill="#ffe08c" fill-opacity=".43"/>
+
+  <path d="M87 112L156 52H334L265 112H87V262
+           H265V112M265 262L334 202V52"
+   fill="none" stroke="#bceaff" stroke-width="4"/>
+
+  <path d="M87 262L156 202L334 202M156 52V202"
+   fill="none" stroke="#bceaff" stroke-width="3"
+   stroke-dasharray="7 6"/>`;
+ }
+
+ if(type==="height"){
+  shape=`
+  <polygon points="87,110 265,110 265,267 87,267"
+   fill="#5dc1f5" fill-opacity=".43"/>
+
+  <polygon points="87,110 153,50 331,50 265,110"
+   fill="#a995ed" fill-opacity=".43"/>
+
+  <path d="M87 110L153 50H331L265 110H87V267H265
+           V110M265 267L331 207V50"
+   fill="none" stroke="#bceaff" stroke-width="4"/>
+
+  <path d="M87 267L153 207L331 207M153 50V207"
+   fill="none" stroke="#bceaff" stroke-width="3"
+   stroke-dasharray="8 7"/>
+
+  <path d="M211 110V267"
+   fill="none" stroke="#ffe08c"
+   stroke-width="5" stroke-dasharray="8 7"/>
+
+  <text x="225" y="200" fill="#ffe08c" font-size="24">h</text>`;
+ }
+
+ if(type==="diagonal"){
+  shape=`
+  <polygon points="86,108 266,108 266,260 86,260"
+   fill="#62c4f7" fill-opacity=".37"/>
+
+  <polygon points="86,108 152,51 332,51 266,108"
+   fill="#ab94f0" fill-opacity=".43"/>
+
+  <path d="M86 108L152 51H332L266 108H86V260H266
+           V108M266 260L332 203V51"
+   fill="none" stroke="#bceaff" stroke-width="4"/>
+
+  <path d="M86 260L152 203L332 203M152 51V203"
+   fill="none" stroke="#bceaff" stroke-width="3"
+   stroke-dasharray="8 7"/>
+
+  <path d="M86 260L332 51"
+   fill="none" stroke="#ffe08c" stroke-width="5"/>
+
+  <text x="209" y="172" fill="#ffe08c" font-size="24">d</text>`;
+ }
+
+ if(type==="net"){
+  shape=`
+  <rect x="65" y="120" width="70" height="130"
+   fill="#66bff6" fill-opacity=".45"
+   stroke="#bceaff" stroke-width="3"/>
+  <rect x="135" y="120" width="70" height="130"
+   fill="#a594eb" fill-opacity=".46"
+   stroke="#bceaff" stroke-width="3"/>
+  <rect x="205" y="120" width="70" height="130"
+   fill="#66bff6" fill-opacity=".45"
+   stroke="#bceaff" stroke-width="3"/>
+  <rect x="275" y="120" width="70" height="130"
+   fill="#a594eb" fill-opacity=".46"
+   stroke="#bceaff" stroke-width="3"/>
+
+  <rect x="135" y="50" width="70" height="70"
+   fill="#ffe08c" fill-opacity=".50"
+   stroke="#ffe08c" stroke-width="3"/>
+  <rect x="135" y="250" width="70" height="65"
+   fill="#ffe08c" fill-opacity=".50"
+   stroke="#ffe08c" stroke-width="3"/>
+
+  <text x="232" y="39" fill="#ffe08c"
+   font-size="21">Жайма</text>`;
+ }
+
+ return `
+ <svg viewBox="0 0 440 330"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Призманың геометриялық сызбасы">
+  ${defs}${shape}
+ </svg>`;
+}
+
+function picture(type,label){
+ return `<figure class="figure">
+  ${diagram(type)}
+  <figcaption>${label}</figcaption>
+ </figure>`;
+}
+
+/* ======================================
+   2. САБАҚ БЕТТЕРІ
+====================================== */
+
+const slides=[];
+
+function add(section,title,html){
+ slides.push({section,title,html});
+}
+
+function card(title,html){
+ return `<div class="card">
+  <h3>${title}</h3>${html}
+ </div>`;
+}
+
+function steps(items){
+ return items.map((x,i)=>`
+  <div class="step">
+   <strong>${i+1}-қадам.</strong> ${x}
+  </div>
+ `).join("");
+}
+
+function solution(title,items){
+ return `<details>
+  <summary>${title} — шешімін көру</summary>
+  ${steps(items)}
+ </details>`;
+}
+
+function example(title,given,items,fig){
+ return card(title,`
+  ${picture(fig,"Есептің сызбасы")}
+  <p><strong>Берілгені:</strong> ${given}</p>
+  <h3>Шығарылуы</h3>
+  ${steps(items)}
+ `);
+}
+
+/* КІРІСПЕ — 1 БЕТ */
+
+add("intro","§2. Призмалар",`
+ <p class="lead">
+  Бүгін біз призманың анықтамасын,
+  оның табандарын, бүйір жақтарын,
+  қырларын және биіктігін зерттейміз.
+  Тік және көлбеу призмаларды салыстырамыз,
+  призманың бетінің ауданы мен көлемін
+  есептеуді үйренеміз.
+ </p>
+
+ <div class="grid2">
+  ${picture("triPrism","Үшбұрышты призма")}
+  ${picture("rectPrism","Төртбұрышты призма")}
+ </div>
+
+ <div class="grid2">
+  ${picture("hexPrism","Алтыбұрышты призма")}
+  ${picture("oblique","Көлбеу призма")}
+ </div>
+
+ ${card("Сабақ мақсаты",`
+  <p>1. Призманың анықтамасын түсіну.</p>
+  <p>2. Призманың элементтерін ажырату.</p>
+  <p>3. Тік және көлбеу призмаларды салыстыру.</p>
+  <p>4. Бүйір және толық бет ауданын табу.</p>
+  <p>5. Призманың көлемін есептеу.</p>
+ `)}
+
+ <div class="formula">S<sub>бүйір</sub> = P · h</div>
+ <div class="formula">S<sub>толық</sub> = 2S + S<sub>бүйір</sub></div>
+ <div class="formula">V = S · h</div>
+`);
+
+/* ТҮСІНДІРМЕ — 9 БЕТ */
+
+const theory=[
+ {
+  title:"2.1. Призма дегеніміз не?",
+  fig:"triPrism",
+  lead:"Призма — екі тең және параллель көпбұрыштан тұратын табандары, ал бүйір жақтары параллелограмм болатын көпжақ.",
+  points:[
+   "Призманың екі табаны бар.",
+   "Табандары өзара тең және параллель.",
+   "Бүйір жақтары параллелограмм болады.",
+   "Сәйкес төбелерді қосатын кесінділер бүйір қырлар деп аталады."
+  ]
+ },
+ {
+  title:"2.1. Призманың негізгі элементтері",
+  fig:"rectPrism",
+  lead:"Призманың негізгі элементтері: табандар, бүйір жақтар, табан қырлары, бүйір қырлар, төбелер және биіктік.",
+  points:[
+   "Призманың табаны — көпбұрыш.",
+   "Бүйір жақтары көршілес табан қырларын қосады.",
+   "Бүйір қырлар бір-біріне параллель және тең.",
+   "Биіктік — табан жазықтықтарының перпендикуляр арақашықтығы."
+  ]
+ },
+ {
+  title:"2.2. Үшбұрышты призма",
+  fig:"triPrism",
+  lead:"Үшбұрышты призманың екі табаны үшбұрыш болады. Оның үш бүйір жағы бар.",
+  points:[
+   "2 үшбұрышты табаны болады.",
+   "3 бүйір жағы болады.",
+   "Барлығы 5 жағы бар.",
+   "6 төбесі және 9 қыры бар."
+  ]
+ },
+ {
+  title:"2.2. Төртбұрышты призма",
+  fig:"rectPrism",
+  lead:"Төртбұрышты призманың екі табаны төртбұрыш болады. Оның төрт бүйір жағы бар.",
+  points:[
+   "2 төртбұрышты табаны болады.",
+   "4 бүйір жағы болады.",
+   "Барлығы 6 жағы бар.",
+   "8 төбесі және 12 қыры бар."
+  ]
+ },
+ {
+  title:"2.3. Дұрыс призма",
+  fig:"hexPrism",
+  lead:"Дұрыс призма — табаны дұрыс көпбұрыш болатын тік призма.",
+  points:[
+   "Табанындағы көпбұрыштың барлық қабырғалары тең.",
+   "Табанындағы барлық ішкі бұрыштар тең.",
+   "Бүйір қырлары табан жазықтығына перпендикуляр.",
+   "Бүйір жақтары тең тіктөртбұрыштар болады."
+  ]
+ },
+ {
+  title:"2.4. Тік және көлбеу призмалар",
+  fig:"oblique",
+  lead:"Тік призманың бүйір қырлары табан жазықтықтарына перпендикуляр. Көлбеу призманың бүйір қырлары перпендикуляр болмайды.",
+  points:[
+   "Тік призманың биіктігі бүйір қырының ұзындығына тең.",
+   "Көлбеу призманың биіктігі бүйір қырына тең емес.",
+   "Көлбеу призманың биіктігі табандар арасындағы перпендикулярмен өлшенеді.",
+   "Екі түрге де көлемнің V = Sh формуласы қолданылады."
+  ]
+ },
+ {
+  title:"2.5. Призманың бүйір бетінің ауданы",
+  fig:"lateral",
+  lead:"Тік призманың бүйір бетінің ауданы табан периметрі мен биіктігінің көбейтіндісіне тең.",
+  points:[
+   "Формула: Sбүйір = P · h.",
+   "P — табан көпбұрышының периметрі.",
+   "h — тік призманың биіктігі.",
+   "Бұл формуланы көлбеу призмаға жалпы жағдайда тікелей қолдануға болмайды."
+  ]
+ },
+ {
+  title:"2.6. Призманың толық бетінің ауданы",
+  fig:"net",
+  lead:"Призманың толық бетінің ауданы екі табан ауданы мен бүйір бетінің ауданының қосындысына тең.",
+  points:[
+   "Толық бетке барлық жақтар кіреді.",
+   "Формула: Sтолық = 2Sтабан + Sбүйір.",
+   "Екі табанның аудандары бірдей.",
+   "Жайма арқылы бет аудандарын көруге болады."
+  ]
+ },
+ {
+  title:"2.7. Призманың көлемі",
+  fig:"height",
+  lead:"Призманың көлемі табан ауданы мен биіктігінің көбейтіндісіне тең.",
+  points:[
+   "Формула: V = Sh.",
+   "S — табан ауданы.",
+   "h — екі табанның перпендикуляр арақашықтығы.",
+   "Көлем куб бірліктермен өлшенеді: см³, дм³, м³.",
+   "Көлем формуласы тік және көлбеу призмаларға да дұрыс."
+  ]
+ }
+];
+
+theory.forEach(t=>{
+ add("theory",t.title,`
+  <p class="lead">${t.lead}</p>
+  ${picture(t.fig,t.title)}
+  ${card("Толық түсіндірме",
+   t.points.map(p=>`<p>✦ ${p}</p>`).join("")
+  )}
+  <button class="action" onclick="openBoard()">
+   ✎ Тақтада көрсету
+  </button>
+ `);
+});
+
+/* КОНСПЕКТ — 4 ТАҚЫРЫП */
+
+const topics=[
+ {
+  name:"Призманың элементтері",
+  fig:"triPrism",
+  notes:[
+   "Призманың екі тең, параллель табаны болады.",
+   "Егер табаны n-бұрыш болса, призманың 2n төбесі болады.",
+   "Қырлар саны 3n-ге тең.",
+   "Барлық жақтар саны n + 2.",
+   "Бүйір жақтар саны n-ге тең."
+  ],
+  examples:[
+   [
+    "Алтыбұрышты призманың элементтері",
+    "Табаны алтыбұрыш.",
+    [
+     "n = 6.",
+     "Төбелер саны: 2n = 12.",
+     "Қырлар саны: 3n = 18.",
+     "Жақтар саны: n + 2 = 8.",
+     "Жауабы: 12 төбе, 18 қыр, 8 жақ."
+    ]
+   ],
+   [
+    "Бесбұрышты призманың элементтері",
+    "Табаны бесбұрыш.",
+    [
+     "n = 5.",
+     "Төбелер саны: 2 × 5 = 10.",
+     "Қырлар саны: 3 × 5 = 15.",
+     "Жақтар саны: 5 + 2 = 7.",
+     "Жауабы: 10 төбе, 15 қыр, 7 жақ."
+    ]
+   ]
+  ],
+  tasks:[
+   [
+    "Жетібұрышты призманың төбелері мен қырларын табыңдар.",
+    [
+     "n = 7.",
+     "Төбелер саны: 2 × 7 = 14.",
+     "Қырлар саны: 3 × 7 = 21.",
+     "Жауабы: 14 төбе, 21 қыр."
+    ]
+   ],
+   [
+    "Призманың 24 қыры бар. Оның табаны неше бұрышты?",
+    [
+     "Қырлар саны 3n-ге тең.",
+     "3n = 24.",
+     "n = 8.",
+     "Жауабы: сегізбұрышты призма."
+    ]
+   ]
+  ]
+ },
+ {
+  name:"Тік призма және бүйір бет",
+  fig:"lateral",
+  notes:[
+   "Тік призмада бүйір қыр табан жазықтығына перпендикуляр.",
+   "Тік призманың биіктігі бүйір қырына тең.",
+   "Табан периметрі барлық табан қабырғаларының қосындысы.",
+   "Sбүйір = P · h.",
+   "Дұрыс n-бұрышты призманың табан периметрі P = na."
+  ],
+  examples:[
+   [
+    "Дұрыс төртбұрышты призманың бүйір беті",
+    "Табан қабырғасы 9 см, биіктігі 16 см.",
+    [
+     "Табан периметрі: P = 4 × 9 = 36 см.",
+     "Sбүйір = P × h.",
+     "Sбүйір = 36 × 16.",
+     "Жауабы: 576 см²."
+    ]
+   ],
+   [
+    "Дұрыс үшбұрышты призма",
+    "Табан қабырғасы 12 см, биіктігі 15 см.",
+    [
+     "P = 3 × 12 = 36 см.",
+     "Sбүйір = 36 × 15.",
+     "Жауабы: 540 см²."
+    ]
+   ]
+  ],
+  tasks:[
+   [
+    "Дұрыс бесбұрышты призма: a = 7 см, h = 18 см. Бүйір бетін табыңдар.",
+    [
+     "P = 5 × 7 = 35 см.",
+     "Sбүйір = 35 × 18.",
+     "Жауабы: 630 см²."
+    ]
+   ],
+   [
+    "Тік призманың бүйір беті 864 см², табан периметрі 48 см. Биіктігін табыңдар.",
+    [
+     "Sбүйір = Ph.",
+     "h = Sбүйір ÷ P.",
+     "h = 864 ÷ 48.",
+     "Жауабы: 18 см."
+    ]
+   ]
+  ]
+ },
+ {
+  name:"Толық бетінің ауданы",
+  fig:"net",
+  notes:[
+   "Толық бет — барлық табандар мен бүйір жақтардың аудандарының қосындысы.",
+   "Sтолық = 2Sтабан + Sбүйір.",
+   "Тік призма үшін Sбүйір = Ph.",
+   "Табан шаршы болса, Sтабан = a².",
+   "Тікбұрышты параллелепипедтің беті: Sтолық = 2(ab + ac + bc)."
+  ],
+  examples:[
+   [
+    "Шаршы табанды тік призма",
+    "Табан қабырғасы 8 см, биіктігі 13 см.",
+    [
+     "Табан ауданы: S = 8² = 64 см².",
+     "Периметрі: P = 4 × 8 = 32 см.",
+     "Бүйір беті: 32 × 13 = 416 см².",
+     "Толық беті: 2 × 64 + 416.",
+     "Жауабы: 544 см²."
+    ]
+   ],
+   [
+    "Тікбұрышты параллелепипед",
+    "Өлшемдері 7 см, 10 см және 14 см.",
+    [
+     "Sтолық = 2(ab + ac + bc).",
+     "ab = 70, ac = 98, bc = 140.",
+     "Sтолық = 2 × (70 + 98 + 140).",
+     "Жауабы: 616 см²."
+    ]
+   ]
+  ],
+  tasks:[
+   [
+    "Шаршы табанды тік призманың қабырғасы 11 см, биіктігі 20 см. Толық бетін табыңдар.",
+    [
+     "Sтабан = 121 см².",
+     "P = 44 см.",
+     "Sбүйір = 44 × 20 = 880 см².",
+     "Sтолық = 2 × 121 + 880.",
+     "Жауабы: 1122 см²."
+    ]
+   ],
+   [
+    "Өлшемдері 6 см, 9 см және 17 см параллелепипедтің толық бетін табыңдар.",
+    [
+     "Sтолық = 2(ab + ac + bc).",
+     "ab = 54, ac = 102, bc = 153.",
+     "Sтолық = 2 × 309.",
+     "Жауабы: 618 см²."
+    ]
+   ]
+  ]
+ },
+ {
+  name:"Призманың көлемі",
+  fig:"height",
+  notes:[
+   "Призманың көлемі V = Sh.",
+   "S — табан ауданы.",
+   "h — табандар арақашықтығы.",
+   "Тікбұрышты параллелепипед үшін V = abc.",
+   "Үшбұрыш табанының ауданы S = ah₁ ÷ 2.",
+   "Көлбеу призмада биіктікті бүйір қырмен шатастырмау керек."
+  ],
+  examples:[
+   [
+    "Үшбұрышты призманың көлемі",
+    "Табан үшбұрышының қабырғасы 16 см, оған түсірілген биіктік 9 см. Призма биіктігі 23 см.",
+    [
+     "Табан ауданы: S = 16 × 9 ÷ 2.",
+     "S = 72 см².",
+     "Призма көлемі: V = Sh.",
+     "V = 72 × 23.",
+     "Жауабы: 1656 см³."
+    ]
+   ],
+   [
+    "Тікбұрышты параллелепипедтің көлемі",
+    "Ұзындығы 14 см, ені 8 см, биіктігі 19 см.",
+    [
+     "V = abc.",
+     "V = 14 × 8 × 19.",
+     "14 × 8 = 112.",
+     "112 × 19 = 2128.",
+     "Жауабы: 2128 см³."
+    ]
+   ]
+  ],
+  tasks:[
+   [
+    "Призманың табан ауданы 96 см², биіктігі 27 см. Көлемін табыңдар.",
+    [
+     "V = Sh.",
+     "V = 96 × 27.",
+     "Жауабы: 2592 см³."
+    ]
+   ],
+   [
+    "Призма көлемі 4320 см³, табан ауданы 180 см². Биіктігін табыңдар.",
+    [
+     "V = Sh.",
+     "h = V ÷ S.",
+     "h = 4320 ÷ 180.",
+     "Жауабы: 24 см."
+    ]
+   ]
+  ]
+ }
+];
+
+/* 12 КОНСПЕКТ БЕТІ */
+topics.forEach((t,i)=>{
+ const notes=t.notes.map(x=>`<p>✦ ${x}</p>`).join("");
+
+ const tasks=t.tasks.map((x,j)=>
+  solution((j+1)+"-өзіндік есеп. "+x[0],x[1])
+ ).join("");
+
+ add("notes","Конспект "+(i+1)+". "+t.name,`
+  <span class="tag">ДӘПТЕРГЕ ЖАЗЫП АЛЫҢДАР</span>
+  ${picture(t.fig,t.name)}
+  ${card("Негізгі анықтамалар",notes)}
+  ${card("Өзіндік жұмыс — 2 есеп",tasks)}
+ `);
+
+ add("notes","Конспект "+(i+1)+". Мысалдар",`
+  <p class="lead">
+   Берілгенін анықтап, формуласын жазыңдар.
+   Есептің барлық қадамын дәптерге түсіріңдер.
+  </p>
+  ${t.examples.map(e=>
+   example(e[0],e[1],e[2],t.fig)
+  ).join("")}
+ `);
+
+ add("notes","Конспект "+(i+1)+". Бекіту",`
+  ${picture(t.fig,"Қайталау сызбасы")}
+  ${card("Ережелер",notes)}
+  ${card("Өзіндік жұмыс — 2 есеп",tasks)}
+  <button class="action" onclick="openBoard()">
+   ✎ Тақтада шығару
+  </button>
+ `);
+});
+
+/* 4 ДЕҢГЕЙ — 8 ЕСЕП */
+const levels=[
+ [
+  "I деңгей",
+  "Үшбұрышты призманың төбелер, қырлар және жақтар санын табыңдар.",
+  [
+   "n = 3.",
+   "Төбелер саны: 2n = 6.",
+   "Қырлар саны: 3n = 9.",
+   "Жақтар саны: n + 2 = 5.",
+   "Жауабы: 6 төбе, 9 қыр, 5 жақ."
+  ],
+  "triPrism"
+ ],
+ [
+  "I деңгей",
+  "Табан ауданы 35 см², биіктігі 17 см болатын призманың көлемін табыңдар.",
+  [
+   "V = Sh.",
+   "V = 35 × 17.",
+   "Жауабы: 595 см³."
+  ],
+  "height"
+ ],
+ [
+  "II деңгей",
+  "Тік төртбұрышты призманың табан қабырғалары 12 см және 9 см, биіктігі 21 см. Көлемі қандай?",
+  [
+   "Sтабан = 12 × 9.",
+   "Sтабан = 108 см².",
+   "V = 108 × 21.",
+   "Жауабы: 2268 см³."
+  ],
+  "rectPrism"
+ ],
+ [
+  "II деңгей",
+  "Дұрыс төртбұрышты тік призманың табан қабырғасы 13 см, биіктігі 18 см. Бүйір бетінің ауданын табыңдар.",
+  [
+   "P = 4 × 13 = 52 см.",
+   "Sбүйір = Ph.",
+   "Sбүйір = 52 × 18.",
+   "Жауабы: 936 см²."
+  ],
+  "lateral"
+ ],
+ [
+  "III деңгей",
+  "Тікбұрышты параллелепипедтің өлшемдері 11 см, 16 см, 23 см. Толық бетінің ауданы мен көлемін табыңдар.",
+  [
+   "Sтолық = 2(ab + ac + bc).",
+   "ab = 176, ac = 253, bc = 368.",
+   "Sтолық = 2 × 797 = 1594 см².",
+   "V = 11 × 16 × 23.",
+   "Жауабы: V = 4048 см³, Sтолық = 1594 см²."
+  ],
+  "rectPrism"
+ ],
+ [
+  "III деңгей",
+  "Үшбұрышты тік призманың табанындағы үшбұрыш қабырғасы 18 см, оған түсірілген биіктігі 13 см. Призма биіктігі 25 см. Көлемін табыңдар.",
+  [
+   "Sтабан = 18 × 13 ÷ 2.",
+   "Sтабан = 117 см².",
+   "V = 117 × 25.",
+   "Жауабы: 2925 см³."
+  ],
+  "triPrism"
+ ],
+ [
+  "IV деңгей",
+  "Тік призманың бүйір беті 1152 см², табан периметрі 64 см, табан ауданы 180 см². Биіктігін, толық бетін және көлемін табыңдар.",
+  [
+   "h = Sбүйір ÷ P = 1152 ÷ 64.",
+   "h = 18 см.",
+   "Sтолық = 1152 + 2 × 180.",
+   "Sтолық = 1512 см².",
+   "V = 180 × 18.",
+   "Жауабы: V = 3240 см³."
+  ],
+  "lateral"
+ ],
+ [
+  "IV деңгей",
+  "Призманың көлемі 5760 см³. Табаны тіктөртбұрыш, оның бір қабырғасы 16 см, екінші қабырғасы 15 см. Призманың биіктігін табыңдар.",
+  [
+   "Sтабан = 16 × 15.",
+   "Sтабан = 240 см².",
+   "V = Sh.",
+   "h = 5760 ÷ 240.",
+   "Жауабы: 24 см."
+  ],
+  "height"
+ ]
+];
+
+levels.forEach((t,i)=>{
+ add("tasks",t[0]+" · "+(i+1)+"-есеп",`
+  <span class="tag">4 ДЕҢГЕЙЛІ ТАПСЫРМА</span>
+  ${card("Есептің шарты",`
+   <p class="lead">${t[1]}</p>
+  `)}
+  ${picture(t[3],"Есептің сызбасы")}
+
+  ${card("Есепті орындау",`
+   <p>1. Берілген шамаларды анықтаңдар.</p>
+   <p>2. Қажетті формуланы жазыңдар.</p>
+   <p>3. Есептеуді ретімен орындаңдар.</p>
+   <p>4. Жауапты дұрыс өлшем бірлігімен көрсетіңдер.</p>
+  `)}
+
+  ${solution("Толық шығарылуы",t[2])}
+
+  <button class="action" onclick="openBoard()">
+   ✎ Тақтада шығару
+  </button>
+ `);
+});
+
+/* КОМАНДАЛЫҚ ОЙЫН — 15 СҰРАҚ */
+const questions=[
+ ["Призманың неше табаны бар?",
+  ["1","2","3","4"],1],
+
+ ["Призманың табандары қандай?",
+  ["Әртүрлі","Тең және параллель","Перпендикуляр","Қиылысады"],1],
+
+ ["Үшбұрышты призмада неше төбе бар?",
+  ["4","5","6","8"],2],
+
+ ["Үшбұрышты призмада неше қыр бар?",
+  ["6","8","9","12"],2],
+
+ ["Төртбұрышты призмада неше жақ бар?",
+  ["4","5","6","8"],2],
+
+ ["Тік призманың бүйір жақтары қандай?",
+  ["Шеңбер","Тіктөртбұрыш","Үшбұрыш","Трапеция"],1],
+
+ ["Тік призманың бүйір бет ауданы?",
+  ["Ph","Sh","P+h","2S"],0],
+
+ ["Призманың көлем формуласы?",
+  ["Sh","S+h","2Sh","Sh/3"],0],
+
+ ["Тік призманың биіктігі неге тең?",
+  ["Табан қырына","Бүйір қырына","Диагональға","Периметрге"],1],
+
+ ["S = 20 см², h = 10 см. Көлем?",
+  ["20","100","200","400"],2],
+
+ ["P = 24 см, h = 7 см. Тік призманың бүйір беті?",
+  ["31","84","168","336"],2],
+
+ ["n-бұрышты призманың қырлары қанша?",
+  ["2n","3n","n+2","4n"],1],
+
+ ["Табан шаршы болса, оның ауданы?",
+  ["4a","2a","a²","a³"],2],
+
+ ["Толық бет ауданы?",
+  ["Sбүйір + 2Sтабан","Sбүйір + Sтабан","2Sбүйір","Sh"],0],
+
+ ["Тікбұрышты параллелепипед көлемі?",
+  ["ab","abc","a+b+c","2abc"],1]
+];
+
+let gameAnswers={};
+let scores=[0,0,0];
+
+for(let round=0;round<4;round++){
+ add("game","Командалық ойын · "+(round+1)+"-кезең",`
+  <span class="tag">
+   3 КОМАНДА · 15 СҰРАҚ · +10 ҰПАЙ
+  </span>
+
+  <div class="scoreGrid">
+   <div class="score">1-команда<b id="team0">0</b></div>
+   <div class="score">2-команда<b id="team1">0</b></div>
+   <div class="score">3-команда<b id="team2">0</b></div>
+  </div>
+
+  <div id="gameQuestions"></div>
+
+  <button class="action" onclick="resetGame()">
+   ↻ Қайта бастау
+  </button>
+ `);
+}
+
+/* ҮЙ ЖҰМЫСЫ — 2 БЕТ */
+add("homework","Үй жұмысы · Екі есеп",`
+ ${card("1-есеп. Тік призма",`
+  <p>
+   Дұрыс төртбұрышты тік призманың
+   табан қабырғасы <strong>17 см</strong>,
+   биіктігі <strong>26 см</strong>.
+  </p>
+
+  <p>
+   Призманың бүйір бетінің ауданын,
+   толық бетінің ауданын және көлемін табыңдар.
+  </p>
+ `)}
+
+ ${card("2-есеп. Үшбұрышты призма",`
+  <p>
+   Үшбұрышты призманың табан үшбұрышының
+   табаны <strong>23 см</strong>,
+   оған түсірілген биіктігі <strong>14 см</strong>.
+  </p>
+
+  <p>
+   Призманың биіктігі <strong>19 см</strong>.
+  </p>
+
+  <p>
+   Призманың көлемін есептеңдер.
+  </p>
+ `)}
+`);
+
+add("homework","Үй жұмысы · Зерттеу және сызба",`
+ ${picture("hexPrism","Дұрыс алтыбұрышты призма")}
+
+ ${card("3-тапсырма. Сызба",`
+  <p>
+   Алтыбұрышты призманың сызбасын салыңдар.
+   Оның төбелерін A, B, C, D, E, F және
+   A₁, B₁, C₁, D₁, E₁, F₁ деп белгілеңдер.
+  </p>
+
+  <p>
+   Төбелер санын, қырлар санын және
+   барлық жақтар санын анықтаңдар.
+  </p>
+ `)}
+
+ ${card("Қосымша шығармашылық тапсырма",`
+  <p>
+   Күнделікті өмірден призма пішінді
+   үш зат тауып, олардың қайсысы
+   тік призмаға ұқсайтынын түсіндіріңдер.
+  </p>
+ `)}
+`);
+
+/* ҚОРЫТЫНДЫ — 1 БЕТ */
+add("finish","§2. Призмалар — қорытынды",`
+ <p class="lead">
+  Біз призманың анықтамасын, элементтерін,
+  түрлерін, бүйір және толық бетінің
+  аудандарын, көлемін есептеуді үйрендік.
+ </p>
+
+ <div class="grid2">
+  ${picture("triPrism","Үшбұрышты призма")}
+  ${picture("rectPrism","Төртбұрышты призма")}
+ </div>
+
+ <div class="formula">
+  S<sub>бүйір</sub> = P · h
+ </div>
+
+ <div class="formula">
+  S<sub>толық</sub> = 2S + S<sub>бүйір</sub>
+ </div>
+
+ <div class="formula">V = S · h</div>
+
+ ${card("Қорытынды сұрақтары",`
+  <p>1. Призма дегеніміз не?</p>
+  <p>2. Тік және көлбеу призманың айырмашылығы қандай?</p>
+  <p>3. Призманың бүйір беті қалай табылады?</p>
+  <p>4. Толық бетінің ауданын қалай есептейміз?</p>
+  <p>5. Призманың көлемінің формуласы қандай?</p>
+ `)}
+
+ <button class="action" onclick="goTo(0)">
+  Бастапқы бетке қайту
+ </button>
+`);
+
+/* ======================================
+   3. САБАҚ НАВИГАЦИЯСЫ
+====================================== */
+
+const sections=[
+ ["intro","🏠 Кіріспе"],
+ ["theory","📖 Түсіндірме"],
+ ["notes","📝 Конспект"],
+ ["tasks","📐 4 деңгей"],
+ ["game","🏆 Командалық ойын"],
+ ["homework","📚 Үй жұмысы"],
+ ["finish","✅ Қорытынды"]
+];
+
+let slideIndex=0;
+
+function createSidebar(){
+ const box=document.getElementById("sectionButtons");
+
+ sections.forEach(([id,label])=>{
+  const btn=document.createElement("button");
+
+  btn.className="sideBtn";
+  btn.dataset.section=id;
+  btn.textContent=label;
+
+  btn.onclick=()=>{
+   const i=slides.findIndex(s=>s.section===id);
+   if(i>=0)goTo(i);
+  };
+
+  box.appendChild(btn);
+ });
+}
+
+function goTo(index){
+ slideIndex=Math.max(
+  0,Math.min(slides.length-1,index)
+ );
+
+ const s=slides[slideIndex];
+ const label=sections.find(x=>x[0]===s.section)?.[1]||"";
+
+ document.getElementById("slideContent").innerHTML=`
+  <div class="eyebrow">${label}</div>
+  <h1>${s.title}</h1>
+  ${s.html}
+ `;
+
+ document.getElementById("counter").textContent=
+  (slideIndex+1)+" / "+slides.length;
+
+ document.getElementById("prevBtn").disabled=
+  slideIndex===0;
+
+ document.getElementById("nextBtn").disabled=
+  slideIndex===slides.length-1;
+
+ document.querySelectorAll(".sideBtn").forEach(b=>{
+  b.classList.toggle(
+   "active",
+   b.dataset.section===s.section
+  );
+ });
+
+ document.getElementById("slideView").scrollTop=0;
+
+ if(s.section==="game"){
+  const round=slides.slice(0,slideIndex+1)
+   .filter(x=>x.section==="game").length-1;
+
+  renderGame(round);
+ }
+}
+
+function previousSlide(){goTo(slideIndex-1)}
+function nextSlide(){goTo(slideIndex+1)}
+
+document.addEventListener("keydown",e=>{
+ if(document.getElementById("whiteboard").classList.contains("open"))
+  return;
+
+ if(e.target.matches("input,textarea"))return;
+
+ if(e.key==="ArrowLeft")previousSlide();
+ if(e.key==="ArrowRight")nextSlide();
+});
+
+function renderGame(round){
+ const box=document.getElementById("gameQuestions");
+ if(!box)return;
+
+ box.innerHTML="";
+
+ for(let i=round*4;i<Math.min((round+1)*4,questions.length);i++){
+  const q=questions[i];
+  const team=i%3;
+
+  const panel=document.createElement("div");
+  panel.className="card";
+
+  const h=document.createElement("h3");
+  h.textContent=(i+1)+"-сұрақ · "+(team+1)+"-команда";
+
+  const p=document.createElement("p");
+  p.textContent=q[0];
+
+  panel.append(h,p);
+
+  q[1].forEach((option,j)=>{
+   const b=document.createElement("button");
+
+   b.className="choice";
+   b.textContent="ABCD"[j]+") "+option;
+
+   if(gameAnswers[i]!==undefined){
+    b.disabled=true;
+
+    if(j===gameAnswers[i]){
+     b.classList.add(
+      j===q[2]?"correct":"wrong"
+     );
+    }
+
+    if(j===q[2])b.classList.add("correct");
+   }
+
+   b.onclick=()=>{
+    if(gameAnswers[i]!==undefined)return;
+
+    gameAnswers[i]=j;
+
+    if(j===q[2])scores[team]+=10;
+
+    renderGame(round);
+   };
+
+   panel.appendChild(b);
+  });
+
+  if(gameAnswers[i]!==undefined){
+   const msg=document.createElement("p");
+
+   msg.textContent=gameAnswers[i]===q[2]
+    ?"Дұрыс! +10 ұпай."
+    :"Дұрыс жауап: "+q[1][q[2]];
+
+   panel.appendChild(msg);
+  }
+
+  box.appendChild(panel);
+ }
+
+ scores.forEach((value,i)=>{
+  const el=document.getElementById("team"+i);
+
+  if(el)el.textContent=value;
+ });
+
+ document.getElementById("stars").textContent=
+  scores.reduce((a,b)=>a+b,0);
+}
+
+function resetGame(){
+ gameAnswers={};
+ scores=[0,0,0];
+
+ document.getElementById("stars").textContent=0;
+
+ if(slides[slideIndex].section==="game"){
+  const round=slides.slice(0,slideIndex+1)
+   .filter(x=>x.section==="game").length-1;
+
+  renderGame(round);
+ }
+}
+
+/* ======================================
+   4. АЛМАТЫ УАҚЫТЫ ЖӘНЕ 80 МИНУТ
+====================================== */
+
+function updateClock(){
+ document.getElementById("clock").textContent=
+  new Intl.DateTimeFormat("kk-KZ",{
+   timeZone:"Asia/Almaty",
+   hour:"2-digit",
+   minute:"2-digit",
+   second:"2-digit",
+   hour12:false
+  }).format(new Date());
+}
+
+updateClock();
+setInterval(updateClock,1000);
+
+let remaining=4800;
+let timerId=null;
+let deadline=0;
+
+function formatTime(seconds){
+ return String(Math.floor(seconds/60)).padStart(2,"0")
+  +":"+String(seconds%60).padStart(2,"0");
+}
+
+function paintTimer(){
+ document.getElementById("remaining").textContent=
+  formatTime(remaining);
+
+ document.getElementById("elapsed").textContent=
+  formatTime(4800-remaining);
+}
+
+function startTimer(){
+ if(timerId||remaining===0)return;
+
+ deadline=Date.now()+remaining*1000;
+
+ timerId=setInterval(()=>{
+  remaining=Math.max(
+   0,
+   Math.ceil((deadline-Date.now())/1000)
+  );
+
+  paintTimer();
+
+  if(remaining===0){
+   pauseTimer();
+   alert("80 минут аяқталды!");
+  }
+ },250);
+}
+
+function pauseTimer(){
+ if(timerId){
+  remaining=Math.max(
+   0,
+   Math.ceil((deadline-Date.now())/1000)
+  );
+ }
+
+ clearInterval(timerId);
+ timerId=null;
+
+ paintTimer();
+}
+
+function resetTimer(){
+ pauseTimer();
+ remaining=4800;
+ paintTimer();
+}
+
+function toggleFullscreen(){
+ if(document.fullscreenElement)
+  document.exitFullscreen?.();
+ else
+  document.documentElement.requestFullscreen?.();
+}
+
+/* ======================================
+   5. ҒЫЛЫМИ КАЛЬКУЛЯТОР
+====================================== */
+
+const calculator=document.getElementById("calculator");
+const calcInput=document.getElementById("calcInput");
+
+function openCalc(scientific){
+ calculator.classList.add("open");
+
+ document.getElementById("calcTitle").textContent=
+  scientific?"Ғылыми калькулятор · DEG":"Калькулятор";
+
+ const keys=scientific
+  ?["C","⌫","(",")","÷",
+    "sin","cos","tan","cot","√",
+    "7","8","9","^","×",
+    "4","5","6","π","−",
+    "1","2","3",".","+",
+    "0","00","="]
+  :["C","⌫","(",")","÷",
+    "7","8","9","×",
+    "4","5","6","−",
+    "1","2","3","+",
+    "0","00",".","="];
+
+ const box=document.getElementById("calcKeys");
+ box.innerHTML="";
+
+ keys.forEach(k=>{
+  const b=document.createElement("button");
+  b.textContent=k;
+  b.onclick=()=>calcPress(k);
+  box.appendChild(b);
+ });
+}
+
+function closeCalc(){
+ calculator.classList.remove("open");
+}
+
+function calcPress(k){
+ if(k==="C"){
+  calcInput.value="";
+  return;
+ }
+
+ if(k==="⌫"){
+  calcInput.value=calcInput.value.slice(0,-1);
+  return;
+ }
+
+ if(k==="="){
+  try{
+   const result=calculate(calcInput.value);
+
+   if(!Number.isFinite(result))throw Error();
+
+   calcInput.value=String(
+    Number(result.toPrecision(12))
+   );
+  }catch{
+   calcInput.value="Қате";
+  }
+  return;
+ }
+
+ const map={
+  "×":"*",
+  "÷":"/",
+  "−":"-",
+  "π":"pi",
+  "√":"sqrt(",
+  "sin":"sin(",
+  "cos":"cos(",
+  "tan":"tan(",
+  "cot":"cot("
+ };
+
+ calcInput.value+=map[k]??k;
+}
+
+function calculate(expr){
+ const tokens=expr.match(
+  /(?:\d+(?:\.\d*)?|\.\d+)|[a-z]+|[()+\-*/^]/gi
+ )||[];
+
+ if(tokens.join("")!==expr.replace(/\s/g,""))
+  throw Error();
+
+ let pos=0;
+
+ function atom(){
+  const t=tokens[pos++];
+
+  if(t==="("){
+   const v=addition();
+
+   if(tokens[pos++]!==")")throw Error();
+
+   return v;
+  }
+
+  if(t==="pi")return Math.PI;
+
+  const functions={
+   sin:x=>Math.sin(x*Math.PI/180),
+   cos:x=>Math.cos(x*Math.PI/180),
+   tan:x=>Math.tan(x*Math.PI/180),
+   cot:x=>1/Math.tan(x*Math.PI/180),
+   sqrt:x=>Math.sqrt(x)
+  };
+
+  if(functions[t]){
+   if(tokens[pos++]!=="(")throw Error();
+
+   const v=addition();
+
+   if(tokens[pos++]!==")")throw Error();
+
+   return functions[t](v);
+  }
+
+  if(t===undefined||!Number.isFinite(Number(t)))
+   throw Error();
+
+  return Number(t);
+ }
+
+ function power(){
+  if(tokens[pos]==="+"){
+   pos++;
+   return power();
+  }
+
+  if(tokens[pos]==="-"){
+   pos++;
+   return -power();
+  }
+
+  let v=atom();
+
+  if(tokens[pos]==="^"){
+   pos++;
+   v=Math.pow(v,power());
+  }
+
+  return v;
+ }
+
+ function multiply(){
+  let v=power();
+
+  while(["*","/"].includes(tokens[pos])){
+   const op=tokens[pos++];
+   const n=power();
+
+   v=op==="*"?v*n:v/n;
+  }
+
+  return v;
+ }
+
+ function addition(){
+  let v=multiply();
+
+  while(["+","-"].includes(tokens[pos])){
+   const op=tokens[pos++];
+   const n=multiply();
+
+   v=op==="+"?v+n:v-n;
+  }
+
+  return v;
+ }
+
+ const result=addition();
+
+ if(pos!==tokens.length)throw Error();
+
+ return result;
+}
+
+/* ЖЫЛЖЫМАЛЫ КАЛЬКУЛЯТОР */
+const calcHandle=document.getElementById("calcHandle");
+
+let calcDrag=null;
+
+calcHandle.addEventListener("pointerdown",e=>{
+ if(e.target.closest("button"))return;
+
+ const r=calculator.getBoundingClientRect();
+
+ calcDrag={
+  x:e.clientX,
+  y:e.clientY,
+  left:r.left,
+  top:r.top
+ };
+
+ calcHandle.setPointerCapture(e.pointerId);
+});
+
+calcHandle.addEventListener("pointermove",e=>{
+ if(!calcDrag)return;
+
+ calculator.style.left=Math.max(
+  0,
+  Math.min(
+   innerWidth-calculator.offsetWidth,
+   calcDrag.left+e.clientX-calcDrag.x
+  )
+ )+"px";
+
+ calculator.style.top=Math.max(
+  0,
+  Math.min(
+   innerHeight-calculator.offsetHeight,
+   calcDrag.top+e.clientY-calcDrag.y
+  )
+ )+"px";
+});
+
+calcHandle.addEventListener("pointerup",()=>calcDrag=null);
+calcHandle.addEventListener("pointercancel",()=>calcDrag=null);
+
+/* ======================================
+   6. ИНТЕРАКТИВТІ АҚ ТАҚТА
+====================================== */
+
+const board=document.getElementById("whiteboard");
+const area=document.getElementById("boardArea");
+const canvas=document.getElementById("boardCanvas");
+const ctx=canvas.getContext("2d");
+
+const cursor=document.getElementById("eraserCursor");
+const boardColor=document.getElementById("boardColor");
+const boardWidth=document.getElementById("boardWidth");
+
+const inkLayer=document.createElement("canvas");
+const inkCtx=inkLayer.getContext("2d");
+
+let vw=1,vh=1,dpr=1;
+let zoom=1,panX=0,panY=0;
+
+let boardTool="pen";
+let gridVisible=false;
+let active=null;
+let panDrag=null;
+let activePointerId=null;
+let anglePoints=[];
+
+let pages=[{objects:[]}];
+let pageIndex=0;
+let objects=pages[0].objects;
+
+let history=[];
+let future=[];
+
+const imageCache=new Map();
+
+try{
+ const saved=JSON.parse(
+  localStorage.getItem("mat2_touch_board_v1")||"null"
+ );
+
+ if(Array.isArray(saved)&&saved.length){
+  const good=saved.filter(x=>x&&Array.isArray(x.objects));
+
+  if(good.length){
+   pages=good;
+   objects=pages[0].objects;
+  }
+ }
+}catch(e){
+ console.warn(e);
+}
+
+function savePages(){
+ pages[pageIndex].objects=objects;
+
+ try{
+  localStorage.setItem(
+   "mat2_touch_board_v1",
+   JSON.stringify(pages)
+  );
+ }catch(e){
+  console.warn("Сақтау мүмкін болмады",e);
+ }
+}
+
+function resetHistory(){
+ history=[JSON.stringify(objects)];
+ future=[];
+}
+
+function commit(){
+ history.push(JSON.stringify(objects));
+
+ if(history.length>50)history.shift();
+
+ future=[];
+ savePages();
+}
+
+function undoBoard(){
+ if(history.length<2)return;
+
+ future.push(history.pop());
+ objects=JSON.parse(history[history.length-1]);
+
+ savePages();
+ renderBoard();
+}
+
+function redoBoard(){
+ if(!future.length)return;
+
+ const state=future.pop();
+ history.push(state);
+ objects=JSON.parse(state);
+
+ savePages();
+ renderBoard();
+}
+
+function updatePages(){
+ document.getElementById("pageCount").textContent=
+  (pageIndex+1)+" / "+pages.length;
+
+ const list=document.getElementById("pagesList");
+ list.innerHTML="";
+
+ pages.forEach((_,i)=>{
+  const b=document.createElement("button");
+
+  b.textContent=(i+1)+"-бет"+(i===pageIndex?" ✓":"");
+
+  if(i===pageIndex)b.className="active";
+
+  b.onclick=()=>loadPage(i);
+
+  list.appendChild(b);
+ });
+}
+
+function loadPage(i){
+ if(i<0||i>=pages.length)return;
+
+ savePages();
+
+ pageIndex=i;
+ objects=pages[i].objects;
+
+ active=null;
+ anglePoints=[];
+
+ resetHistory();
+ updatePages();
+ renderBoard();
+}
+
+function addBoardPage(){
+ savePages();
+
+ pages.push({objects:[]});
+
+ loadPage(pages.length-1);
+ savePages();
+}
+
+function nextBoardPage(){loadPage(pageIndex+1)}
+function prevBoardPage(){loadPage(pageIndex-1)}
+
+function togglePages(){
+ document.getElementById("pagesPanel")
+  .classList.toggle("open");
+
+ updatePages();
+}
+
+function deleteBoardPage(){
+ if(pages.length===1){
+  alert("Соңғы бетті өшіруге болмайды.");
+  return;
+ }
+
+ if(!confirm("Осы бетті өшіреміз бе?"))return;
+
+ pages.splice(pageIndex,1);
+
+ pageIndex=Math.min(pageIndex,pages.length-1);
+ objects=pages[pageIndex].objects;
+
+ resetHistory();
+ savePages();
+ updatePages();
+ renderBoard();
+}
+
+function openBoard(){
+ board.classList.add("open");
+ resizeCanvas();
+ updatePages();
+}
+
+function closeBoard(){
+ savePages();
+ hideEraser();
+ board.classList.remove("open");
+}
+
+function resizeCanvas(){
+ const r=area.getBoundingClientRect();
+
+ vw=Math.max(1,r.width);
+ vh=Math.max(1,r.height);
+ dpr=Math.min(devicePixelRatio||1,2);
+
+ canvas.width=Math.round(vw*dpr);
+ canvas.height=Math.round(vh*dpr);
+
+ inkLayer.width=canvas.width;
+ inkLayer.height=canvas.height;
+
+ renderBoard();
+}
+
+window.addEventListener("resize",()=>{
+ if(board.classList.contains("open"))
+  resizeCanvas();
+});
+
+/* КООРДИНАТАЛАР */
+function screenPoint(e){
+ const r=canvas.getBoundingClientRect();
+
+ return{
+  x:e.clientX-r.left,
+  y:e.clientY-r.top
+ };
+}
+
+function toWorld(p){
+ return{
+  x:(p.x-panX)/zoom,
+  y:(p.y-panY)/zoom
+ };
+}
+
+function toScreen(p){
+ return{
+  x:p.x*zoom+panX,
+  y:p.y*zoom+panY
+ };
+}
+
+/* ӨШІРГІШТІҢ ДӨҢГЕЛЕГІ */
+function updateCursorSize(){
+ const size=Number(boardWidth.value)*6*zoom;
+
+ cursor.style.width=size+"px";
+ cursor.style.height=size+"px";
+}
+
+function showEraser(e){
+ if(boardTool!=="eraser")return;
+
+ const p=screenPoint(e);
+
+ cursor.style.left=p.x+"px";
+ cursor.style.top=p.y+"px";
+
+ updateCursorSize();
+
+ cursor.style.display="block";
+}
+
+function hideEraser(){
+ cursor.style.display="none";
+}
+
+boardWidth.addEventListener("input",updateCursorSize);
+
+function selectTool(name){
+ boardTool=name;
+ anglePoints=[];
+
+ document.querySelectorAll("[data-tool]").forEach(b=>{
+  b.classList.toggle(
+   "active",
+   b.dataset.tool===name
+  );
+ });
+
+ area.classList.toggle("eraserMode",name==="eraser");
+
+ hideEraser();
+
+ canvas.style.cursor=name==="hand"
+  ?"grab":name==="eraser"?"none":"crosshair";
+
+ updateStatus();
+}
+
+function updateStatus(){
+ const percent=Math.round(zoom*100)+"%";
+
+ document.getElementById("zoomCount").textContent=percent;
+
+ document.getElementById("boardStatus").textContent=
+  boardTool==="eraser"
+   ?"Өшіргіш · 100% өшіру · "+percent
+   :boardTool+" · "+percent;
+}
+
+function setZoom(value,x=vw/2,y=vh/2){
+ value=Math.max(.25,Math.min(3,value));
+
+ const wx=(x-panX)/zoom;
+ const wy=(y-panY)/zoom;
+
+ zoom=value;
+ panX=x-wx*zoom;
+ panY=y-wy*zoom;
+
+ updateStatus();
+ updateCursorSize();
+ renderBoard();
+}
+
+function zoomBoard(factor){
+ setZoom(zoom*factor);
+}
+
+function resetBoardView(){
+ zoom=1;
+ panX=0;
+ panY=0;
+
+ updateStatus();
+ updateCursorSize();
+ renderBoard();
+}
+
+function toggleGrid(){
+ gridVisible=!gridVisible;
+ renderBoard();
+}
+
+canvas.addEventListener("wheel",e=>{
+ e.preventDefault();
+
+ const p=screenPoint(e);
+
+ setZoom(
+  zoom*(e.deltaY<0?1.1:1/1.1),
+  p.x,p.y
+ );
+},{passive:false});
+
+/* ======================================
+   7. СЫЗҒЫШ ЖӘНЕ ТРАНСПОРТИР
+====================================== */
+
+const instruments={
+ ruler:{
+  id:"ruler",
+  x:330,y:155,w:420,h:90,
+  size:1,rotation:0,visible:false
+ },
+ protractor:{
+  id:"protractor",
+  x:420,y:260,w:380,h:210,
+  size:1,rotation:0,visible:false
+ },
+ square:{
+  id:"square",
+  x:380,y:275,w:290,h:290,
+  size:1,rotation:0,visible:false
+ }
+};
+
+function updateInstrument(id){
+ const t=instruments[id];
+ const el=document.getElementById(id);
+
+ el.classList.toggle("visible",t.visible);
+
+ el.style.left=t.x+"px";
+ el.style.top=t.y+"px";
+
+ el.style.setProperty("--rotation",t.rotation+"deg");
+ el.style.setProperty("--size",t.size);
+}
+
+function toggleInstrument(id){
+ instruments[id].visible=!instruments[id].visible;
+
+ updateInstrument(id);
+}
+
+function hideInstrument(id){
+ instruments[id].visible=false;
+ updateInstrument(id);
+}
+
+function resizeInstrument(id,factor){
+ const t=instruments[id];
+
+ t.size=Math.max(
+  .35,
+  Math.min(3,t.size*factor)
+ );
+
+ updateInstrument(id);
+}
+
+function rotateInstrument(id,angle){
+ instruments[id].rotation+=angle;
+ updateInstrument(id);
+}
+
+Object.values(instruments).forEach(t=>{
+ const handle=document.getElementById(t.id)
+  .querySelector(".handle");
+
+ let drag=null;
+
+ handle.addEventListener("pointerdown",e=>{
+  e.preventDefault();
+  e.stopPropagation();
+
+  drag={
+   sx:e.clientX,
+   sy:e.clientY,
+   x:t.x,
+   y:t.y
+  };
+
+  handle.setPointerCapture(e.pointerId);
+ });
+
+ handle.addEventListener("pointermove",e=>{
+  if(!drag)return;
+
+  t.x=drag.x+e.clientX-drag.sx;
+  t.y=drag.y+e.clientY-drag.sy;
+
+  updateInstrument(t.id);
+ });
+
+ handle.addEventListener("pointerup",()=>drag=null);
+ handle.addEventListener("pointercancel",()=>drag=null);
+
+ updateInstrument(t.id);
+});
+
+/* ҚҰРАЛ ШКАЛАЛАРЫ */
+const NS="http://www.w3.org/2000/svg";
+
+function svgEl(tag,attrs,text){
+ const el=document.createElementNS(NS,tag);
+
+ Object.entries(attrs).forEach(([k,v])=>{
+  el.setAttribute(k,v);
+ });
+
+ if(text!==undefined)el.textContent=text;
+
+ return el;
+}
+
+const rulerSVG=document.getElementById("rulerSVG");
+
+rulerSVG.appendChild(svgEl("rect",{
+ x:2,y:8,width:416,height:75,rx:7,
+ fill:"#f0ca7a",
+ "fill-opacity":".86",
+ stroke:"#bd9449",
+ "stroke-width":2
+}));
+
+for(let i=0;i<=40;i++){
+ const x=11+i*10;
+ const big=i%5===0;
+
+ rulerSVG.appendChild(svgEl("line",{
+  x1:x,y1:10,
+  x2:x,y2:big?43:27,
+  stroke:"#5b451f",
+  "stroke-width":big?2:1
+ }));
+
+ if(big){
+  rulerSVG.appendChild(svgEl("text",{
+   x:x-4,y:61,
+   fill:"#5b451f",
+   "font-size":12
+  },String(i/5)));
+ }
+}
+
+const proSVG=document.getElementById("protractorSVG");
+
+proSVG.appendChild(svgEl("path",{
+ d:"M20 195 A170 170 0 0 1 360 195 L20 195 Z",
+ fill:"#90c9ed",
+ "fill-opacity":".48",
+ stroke:"#297cab",
+ "stroke-width":3
+}));
+
+for(let d=0;d<=180;d+=5){
+ const a=Math.PI-d*Math.PI/180;
+ const r=d%10===0?140:153;
+
+ proSVG.appendChild(svgEl("line",{
+  x1:190+r*Math.cos(a),
+  y1:195-r*Math.sin(a),
+  x2:190+168*Math.cos(a),
+  y2:195-168*Math.sin(a),
+  stroke:"#276c95",
+  "stroke-width":d%10===0?2:1
+ }));
+
+ if(d%30===0){
+  proSVG.appendChild(svgEl("text",{
+   x:190+116*Math.cos(a),
+   y:195-116*Math.sin(a),
+   "text-anchor":"middle",
+   fill:"#175779",
+   "font-size":12
+  },String(d)));
+ }
+}
+
+/* ======================================
+   8. ТАҚТАҒА ЖАЗУ / ӨШІРУ
+====================================== */
+
+function getImage(src){
+ if(imageCache.has(src))
+  return imageCache.get(src);
+
+ const im=new Image();
+
+ imageCache.set(src,im);
+ im.onload=renderBoard;
+ im.src=src;
+
+ return im;
+}
+
+function paintObject(c,o){
+ c.save();
+
+ c.strokeStyle=o.color||"#1979cc";
+ c.fillStyle=o.color||"#1979cc";
+ c.lineWidth=o.size||4;
+ c.lineCap="round";
+ c.lineJoin="round";
+
+ if(["pen","highlighter","eraser"].includes(o.type)){
+  if(o.type==="highlighter"){
+   c.globalAlpha=.28;
+   c.lineWidth=(o.size||4)*4;
+  }
+
+  if(o.type==="eraser"){
+   c.globalCompositeOperation="destination-out";
+   c.globalAlpha=1;
+   c.lineWidth=(o.size||4)*6;
+  }
+
+  const pts=o.points||[];
+
+  if(pts.length){
+   c.beginPath();
+   c.moveTo(pts[0].x,pts[0].y);
+
+   if(pts.length===1){
+    c.lineTo(pts[0].x+.01,pts[0].y+.01);
+   }else{
+    pts.slice(1).forEach(p=>{
+     c.lineTo(p.x,p.y);
+    });
+   }
+
+   c.stroke();
+  }
+ }
+
+ if(o.type==="text"){
+  c.font="700 30px Manrope,Arial";
+  c.textBaseline="top";
+
+  (o.text||"").split("\n").forEach((line,i)=>{
+   c.fillText(line,o.x,o.y+i*38);
+  });
+ }
+
+ if(o.type==="line"||o.type==="arrow"){
+  c.beginPath();
+  c.moveTo(o.x1,o.y1);
+  c.lineTo(o.x2,o.y2);
+  c.stroke();
+
+  if(o.type==="arrow"){
+   const a=Math.atan2(
+    o.y2-o.y1,
+    o.x2-o.x1
+   );
+
+   [-.5,.5].forEach(d=>{
+    c.beginPath();
+    c.moveTo(o.x2,o.y2);
+
+    c.lineTo(
+     o.x2-17*Math.cos(a+d),
+     o.y2-17*Math.sin(a+d)
+    );
+
+    c.stroke();
+   });
+  }
+ }
+
+ if(o.type==="rect"){
+  c.strokeRect(
+   o.x1,o.y1,
+   o.x2-o.x1,
+   o.y2-o.y1
+  );
+ }
+
+ if(o.type==="circle"){
+  c.beginPath();
+
+  c.ellipse(
+   (o.x1+o.x2)/2,
+   (o.y1+o.y2)/2,
+   Math.max(.1,Math.abs(o.x2-o.x1)/2),
+   Math.max(.1,Math.abs(o.y2-o.y1)/2),
+   0,0,Math.PI*2
+  );
+
+  c.stroke();
+ }
+
+ if(o.type==="compass"){
+  c.beginPath();
+
+  c.arc(
+   o.x1,o.y1,
+   Math.hypot(o.x2-o.x1,o.y2-o.y1),
+   0,Math.PI*2
+  );
+
+  c.stroke();
+ }
+
+ if(o.type==="triangle"){
+  c.beginPath();
+  c.moveTo((o.x1+o.x2)/2,o.y1);
+  c.lineTo(o.x2,o.y2);
+  c.lineTo(o.x1,o.y2);
+  c.closePath();
+  c.stroke();
+ }
+
+ if(o.type==="table"){
+  for(let i=0;i<=4;i++){
+   const x=o.x1+(o.x2-o.x1)*i/4;
+   const y=o.y1+(o.y2-o.y1)*i/4;
+
+   c.beginPath();
+   c.moveTo(x,o.y1);
+   c.lineTo(x,o.y2);
+   c.moveTo(o.x1,y);
+   c.lineTo(o.x2,y);
+   c.stroke();
+  }
+ }
+
+ if(o.type==="angle"){
+  const a=o.a,b=o.b,d=o.c;
+
+  c.beginPath();
+  c.moveTo(a.x,a.y);
+  c.lineTo(b.x,b.y);
+  c.lineTo(d.x,d.y);
+  c.stroke();
+
+  const ux=a.x-b.x;
+  const uy=a.y-b.y;
+  const vx=d.x-b.x;
+  const vy=d.y-b.y;
+
+  const den=Math.hypot(ux,uy)*Math.hypot(vx,vy);
+
+  if(den){
+   const degrees=Math.acos(
+    Math.max(-1,Math.min(1,
+     (ux*vx+uy*vy)/den
+    ))
+   )*180/Math.PI;
+
+   c.font="700 22px Arial";
+   c.fillText(
+    degrees.toFixed(1)+"°",
+    b.x+13,b.y-15
+   );
+  }
+ }
+
+ if(o.type==="image"){
+  const im=getImage(o.src);
+
+  if(im.complete&&im.naturalWidth){
+   c.drawImage(im,o.x,o.y,o.w,o.h);
+  }
+ }
+
+ c.restore();
+}
+
+function drawGrid(){
+ if(!gridVisible)return;
+
+ const step=50*zoom;
+ if(step<8)return;
+
+ const sx=((panX%step)+step)%step;
+ const sy=((panY%step)+step)%step;
+
+ ctx.save();
+ ctx.beginPath();
+ ctx.strokeStyle="#e5edf5";
+ ctx.lineWidth=1;
+
+ for(let x=sx;x<vw;x+=step){
+  ctx.moveTo(x,0);
+  ctx.lineTo(x,vh);
+ }
+
+ for(let y=sy;y<vh;y+=step){
+  ctx.moveTo(0,y);
+  ctx.lineTo(vw,y);
+ }
+
+ ctx.stroke();
+ ctx.restore();
+}
+
+function renderBoard(){
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+
+ ctx.clearRect(0,0,vw,vh);
+ ctx.fillStyle="white";
+ ctx.fillRect(0,0,vw,vh);
+
+ drawGrid();
+
+ inkCtx.setTransform(1,0,0,1,0,0);
+
+ inkCtx.clearRect(
+  0,0,
+  inkLayer.width,
+  inkLayer.height
+ );
+
+ inkCtx.setTransform(dpr,0,0,dpr,0,0);
+ inkCtx.translate(panX,panY);
+ inkCtx.scale(zoom,zoom);
+
+ objects.forEach(o=>paintObject(inkCtx,o));
+
+ if(active)paintObject(inkCtx,active);
+
+ ctx.drawImage(inkLayer,0,0,vw,vh);
+}
+
+/* ======================================
+   9. САУСАҚПЕН ЖАЗУ / ӨШІРУ
+====================================== */
+
+function startDrawing(e){
+ if(activePointerId!==null)return;
+ if(e.button!==undefined&&e.button!==0)return;
+
+ e.preventDefault();
+
+ activePointerId=e.pointerId;
+ canvas.setPointerCapture(e.pointerId);
+
+ const s=screenPoint(e);
+ const p=toWorld(s);
+
+ if(boardTool==="eraser")showEraser(e);
+
+ if(boardTool==="hand"){
+  panDrag={
+   sx:s.x,
+   sy:s.y,
+   px:panX,
+   py:panY
+  };
+  return;
+ }
+
+ if(boardTool==="text"){
+  activePointerId=null;
+
+  const value=prompt("Мәтінді енгізіңіз:");
+
+  if(value){
+   objects.push({
+    type:"text",
+    text:value,
+    x:p.x,y:p.y,
+    color:boardColor.value
+   });
+
+   commit();
+   renderBoard();
+  }
+  return;
+ }
+
+ if(boardTool==="angle"){
+  activePointerId=null;
+
+  anglePoints.push(p);
+
+  if(anglePoints.length===3){
+   objects.push({
+    type:"angle",
+    a:anglePoints[0],
+    b:anglePoints[1],
+    c:anglePoints[2],
+    color:boardColor.value,
+    size:Number(boardWidth.value)
+   });
+
+   anglePoints=[];
+
+   commit();
+   renderBoard();
+  }
+  return;
+ }
+
+ if(["pen","highlighter","eraser"].includes(boardTool)){
+  active={
+   type:boardTool,
+   points:[p],
+   color:boardColor.value,
+   size:Number(boardWidth.value)
+  };
+ }else{
+  active={
+   type:boardTool,
+   x1:p.x,y1:p.y,
+   x2:p.x,y2:p.y,
+   color:boardColor.value,
+   size:Number(boardWidth.value)
+  };
+ }
+
+ renderBoard();
+}
+
+function moveDrawing(e){
+ if(boardTool==="eraser"){
+  if(e.pointerType==="mouse"||
+     e.pointerId===activePointerId)
+   showEraser(e);
+ }
+
+ if(e.pointerId!==activePointerId)return;
+
+ e.preventDefault();
+
+ const s=screenPoint(e);
+ const p=toWorld(s);
+
+ if(panDrag){
+  panX=panDrag.px+s.x-panDrag.sx;
+  panY=panDrag.py+s.y-panDrag.sy;
+
+  renderBoard();
+  return;
+ }
+
+ if(!active)return;
+
+ if(["pen","highlighter","eraser"].includes(active.type)){
+  const pts=active.points;
+  const last=pts[pts.length-1];
+
+  const distance=Math.hypot(
+   p.x-last.x,
+   p.y-last.y
+  );
+
+  if(distance>.3){
+   pts.push(p);
+  }
+ }else{
+  active.x2=p.x;
+  active.y2=p.y;
+ }
+
+ renderBoard();
+}
+
+function finishDrawing(e){
+ if(e.pointerId!==activePointerId)return;
+
+ if(active){
+  objects.push(active);
+  commit();
+ }
+
+ active=null;
+ panDrag=null;
+ activePointerId=null;
+
+ if(e.pointerType!=="mouse")
+  hideEraser();
+
+ renderBoard();
+}
+
+canvas.addEventListener("pointerdown",startDrawing);
+canvas.addEventListener("pointermove",moveDrawing);
+canvas.addEventListener("pointerup",finishDrawing);
+
+canvas.addEventListener("pointercancel",e=>{
+ finishDrawing(e);
+ hideEraser();
+});
+
+canvas.addEventListener("pointerleave",e=>{
+ if(e.pointerType==="mouse"&&activePointerId===null)
+  hideEraser();
+});
+
+function clearBoard(){
+ if(!confirm("Осы бетті тазалаймыз ба?"))return;
+
+ objects=[];
+ commit();
+ renderBoard();
+}
+
+/* СУРЕТ ҚОСУ */
+document.getElementById("boardFile")
+ .addEventListener("change",e=>{
+  const file=e.target.files?.[0];
+  if(!file)return;
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+   const im=new Image();
+
+   im.onload=()=>{
+    const w=Math.min(480,im.width);
+    const h=w*im.height/im.width;
+
+    objects.push({
+     type:"image",
+     src:reader.result,
+     x:(vw/2-panX)/zoom-w/2,
+     y:(vh/2-panY)/zoom-h/2,
+     w,h
+    });
+
+    commit();
+    renderBoard();
+   };
+
+   im.src=reader.result;
+  };
+
+  reader.readAsDataURL(file);
+  e.target.value="";
+ });
+
+function exportBoard(){
+ renderBoard();
+
+ const link=document.createElement("a");
+
+ link.download="mat2-taqta.png";
+ link.href=canvas.toDataURL("image/png");
+
+ link.click();
+}
+
+document.addEventListener("keydown",e=>{
+ if(!board.classList.contains("open"))return;
+
+ if(e.key==="Escape")closeBoard();
+
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="z"){
+  e.preventDefault();
+  undoBoard();
+ }
+
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="y"){
+  e.preventDefault();
+  redoBoard();
+ }
+});
+
+/* ======================================
+   10. ІСКЕ ҚОСУ
+====================================== */
+
+createSidebar();
+goTo(0);
+paintTimer();
+
+resetHistory();
+selectTool("pen");
+updatePages();
+updateStatus();
+
+</script>
+</body>
+</html>
